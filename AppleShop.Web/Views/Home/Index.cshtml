@@ -1,0 +1,59 @@
+﻿@using AppleShop.Web.Models.ProductService.Dtos.IntegratedServices.Product
+@model List<ProductDto>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-4 my-3">
+                @* <!-- ONE single card here --> *@
+                <div class="card h-100 shadow-sm">
+                    @* @if (string.IsNullOrEmpty(product.ImageUrl))
+                    {
+                        <!-- If no URL exists, just show the placeholder directly --> 
+                        <img src="@Url.Content("~/images/image_placeholder.png")"
+                             class="card-img-top"
+                             style="height: 200px; object-fit: cover;"
+                             alt="@product.Name">
+                    }
+                    else
+                    {
+                        <!-- If URL exists, try to load it and fall back on error --> 
+                        <img src="@product.ImageUrl"
+                             class="card-img-top"
+                             style="height: 200px; object-fit: cover;"
+                             alt="@product.Name"
+                             onerror="this.onerror=null; this.src='@Url.Content("~/images/image_placeholder.png")';">
+                        <-- onerror="this.style.display='none'"> -->
+                    } *@
+                    <partial name="_ProductImage" model="product.ImageUrl" view-data='new ViewDataDictionary(ViewData) { { "AltText", product.Name } }' />
+
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="card-title text-success">@product.Name</h3>
+
+                        @* <!-- <span class="badge badge-light mb-2">@product.CategoryName</span> --> *@
+
+                        <p class="card-text mb-0">@Html.Raw(product.Description)</p>
+
+                        @* <!-- mt-auto pushes this row to the bottom of the card --> *@
+                        <div class="row mt-auto pt-3">
+                            <div class="col pt-1">
+                                <span style="font-size:23px;">@string.Format("{0:c}", product.Price)</span>
+                            </div>
+                            <div class="col">
+                                <a asp-action="Details"
+                                   asp-route-productId="@product.ProductId"
+                                   class="btn btn-success form-control">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @* <!-- foreach closes HERE, after the col-4 closes --> *@
+    </div>@*  <!-- row closes HERE --> *@
+</div> @* <!-- container closes HERE --> *@

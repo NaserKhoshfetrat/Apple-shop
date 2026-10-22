@@ -1,0 +1,197 @@
+﻿@using AppleShop.Web.Models.ProductService.Dtos.IntegratedServices.ShoppingCart
+@model ShoppingCartDto
+
+@section Styles {
+    @* date only *@
+    <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+    
+    @* datetime *@
+    <link href="~/lib/eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css" rel="stylesheet" />
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-warning" role="alert">@TempData["Error"]</div>
+}
+
+@if (Model != null && Model.ShoppingCartDetail.Count() > 0)
+{
+    <form method="post">
+
+        <input asp-for="ShoppingCartHeader.UserId" hidden />
+        <input asp-for="ShoppingCartHeader.Id" hidden />
+        <input asp-for="ShoppingCartHeader.CouponCode" hidden />
+        <input asp-for="ShoppingCartHeader.DiscountTotal" hidden />
+        <input asp-for="ShoppingCartHeader.OrderTotal" hidden />
+        <div>
+            <span style="font-size:25px;" class="text-warning">Enter details and place order :</span>
+            <br />
+        </div>
+        <div class="border mt-2">
+            <div class="container row">
+                <div class="col-7">
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="col-form-label">First Name :</label>
+                            <input asp-for="ShoppingCartHeader.FirstName" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label class="col-form-label">Last Name :</label>
+                            <input asp-for="ShoppingCartHeader.LastName" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label class="col-form-label">Email :</label>
+                            <input asp-for="ShoppingCartHeader.Email" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label class="col-form-label">Phone :</label>
+                            <input asp-for="ShoppingCartHeader.Phone" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label class="col-form-label">PickUp Time</label>
+                            <input asp-for="ShoppingCartHeader.PickupDateTime"
+                                   id="ShoppingCartHeader_PickupDateTime"
+                                   class="form-control form_datetime"
+                                   type="text" />
+                            @* <input asp-for="ShoppingCartHeader.PickupDateTime" class="form-control form_datetime" type="text"> *@
+                        </div>
+                        <div class="col-12">
+                            <label class="col-form-label">Card Number :</label>
+                            <input asp-for="ShoppingCartHeader.CardNumber" class="form-control" />
+                        </div>
+
+                        <div class="col-12">
+                            <label class="col-form-label">CVV :</label>
+                            <input asp-for="ShoppingCartHeader.CVV" class="form-control" />
+                        </div>
+
+                        <div class="col-12 pb-4">
+                            <label class="col-form-label">Expiry :</label>
+                            <input asp-for="ShoppingCartHeader.ExpiryBankCardMonthYear" placeholder="MMYY" class="form-control form_dateonly" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <div class=" d-none d-lg-block">
+                                <div class="row text-danger">
+                                    <div class="col-6">
+                                        Product Details
+                                    </div>
+
+                                    <div class="col-3">
+                                        Price
+                                    </div>
+                                    <div class="col-3">
+                                        Count
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            @foreach (var cartObj in Model.ShoppingCartDetail)
+                            {
+
+                                <div class="row h-100">
+                                    <div class="col-6">
+                                        <span style="font-size:20px">@cartObj.Product.Name</span>
+                                    </div>
+
+                                    <div class="col-3" style="font-size:11px;">
+                                        <span style="font-size:17px;"> $@cartObj.Product.Price</span>
+
+                                    </div>
+                                    <div class="col-3" style="font-size:11px;">
+                                        <span style="font-size:17px;"> @cartObj.Count</span>
+                                    </div>
+                                </div>
+                                <hr />
+                            }
+                            <div class="row">
+                                <div class="col-12 text-right pr-4 text-danger">
+                                    Order Total :  @string.Format("{0:c}", Model.ShoppingCartHeader.OrderTotal) <br />
+                                    @if (Model.ShoppingCartHeader.DiscountTotal > 0)
+                                    {
+                                        <span class="text-success"> Order Discount :  @string.Format("{0:c}", Model.ShoppingCartHeader.DiscountTotal)</span>
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+
+                                <div class="col-12 ">
+                                    <button type="submit" class="btn btn-success form-control ">
+                                        <span>Place Order</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+
+
+@section Scripts {
+     @* date only *@
+    <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    @* const expiryBankCardMonthYear = document.getElementById('ShoppingCartHeader_ExpiryBankCardMonthYear'); *@
+
+    ShoppingCartHeader.
+    <script type="text/javascript">
+        $(function () {
+        $('.form_dateonly').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        todayHighlight: true,
+        startDate: new Date(),
+        clearBtn: true
+        });
+        });
+    </script>
+
+    @* date time *@
+    @* <script src="~/lib/popperjs/core/lib/popper.min.js"></script> *@
+
+    @* <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.6/dist/umd/popper.min.js"></script> *@
+    @* <script src="https://cdn.jsdelivr.net/npm/@@eonasdan/tempus-dominus@6.9.4/dist/js/tempus-dominus.min.js"></script> *@
+    
+    <script src="~/lib/popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="~/lib/eonasdan/tempus-dominus/dist/js/tempus-dominus.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const el = document.getElementById('ShoppingCartHeader_PickupDateTime');
+            if (!el) return;
+
+            // Clear the default value of 0001
+            if (el.value && el.value.includes('0001')) {
+                el.value = '';
+            }
+
+        const picker = new tempusDominus.TempusDominus(el, {
+        localization: { format: 'yyyy-MM-dd HH:mm' },
+        restrictions: { minDate: new Date() },
+        display: {
+        icons: {
+        time: 'ri ri-time-line',
+        date: 'ri ri-calendar-line',
+        up: 'ri ri-arrow-up-s-line',
+        down: 'ri ri-arrow-down-s-line',
+        previous: 'ri ri-arrow-left-s-line',
+        next: 'ri ri-arrow-right-s-line',
+        today: 'ri ri-calendar-check-line',
+        clear: 'ri ri-delete-bin-line',
+        close: 'ri ri-close-line'
+        }
+        }
+        });
+        });
+    </script>
+}

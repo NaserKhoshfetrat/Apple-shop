@@ -1,0 +1,30 @@
+﻿@model string
+@* The model here is just the ImageUrl string *@
+
+@{
+    // Grab the alt text and styles from ViewData, with defaults
+    var altText = ViewData["AltText"] as string ?? "Product Image";
+    var cssClass = ViewData["CssClass"] as string ?? "card-img-top";
+    var inlineStyle = ViewData["InlineStyle"] as string ?? "height: 200px; object-fit: cover;";
+    var placeholder = Url.Content("~/images/image_placeholder.png");
+}
+
+@if (string.IsNullOrEmpty(Model))
+{
+    @* <!-- If no URL exists, just show the placeholder directly --> *@
+    <img src="@placeholder"
+         class="@cssClass"
+         style="@inlineStyle"
+         alt="@altText">
+}
+else
+{
+    @* <!-- If URL exists, try to load it and fall back on error --> *@
+    <img src="@Model"
+         class="@cssClass"
+         style="@inlineStyle"
+         alt="@altText"
+         onerror="this.onerror=null; this.src='@placeholder';">
+    @* onerror="this.style.display='none'"> *@
+
+}

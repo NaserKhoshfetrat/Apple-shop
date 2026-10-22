@@ -1,0 +1,6 @@
+@AppleShop.Services.ShoppingCartApi_HostAddress = http://localhost:5018
+
+GET {{AppleShop.Services.ShoppingCartApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,73 @@
+﻿@using AppleShop.Web.Models.ProductService.Dtos.IntegratedServices.Product
+@model List<ProductDto>;
+
+@{
+}
+@if (string.IsNullOrEmpty(ViewBag.Errors as string)) { }
+<div class="container">
+    <div class="row">
+        <div class="col text-start">
+            <h1 class="text-primary">Products</h1>
+        </div>
+
+        <div class="col text-end">
+            <a asp-controller="Product" asp-action="CreateProduct" class="btn btn-primary">
+                <i class="ri-add-fill"></i>
+                &nbsp;
+                Add product
+            </a>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Product name</th>
+                    <th>Price</th>
+                    <th>Creation time</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model is not null)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-truncate" style="max-width: 200px;" title="@item.Name">
+                                @item.Name
+                            </td>
+
+                            <td>
+                                @item.Price.ToString("c")
+                            </td>
+
+                            <td class="text-nowrap text-truncate" style="max-width: 150px;">
+                                <span class="local-datetime" data-utc="@item.CreatedAt.ToString("o")">
+                                    @item.CreatedAt.ToString("MMMM dd, yyyy h:mm tt") utc-time  <!-- fallback for noscript -->
+                                </span>
+                            </td>
+
+                            <td>
+                                <a class="btn btn-outline-warning" asp-action="EditProduct" asp-route-pid="@item.ProductId">
+                                    <i class="ri-edit-2-fill"></i>
+                                </a>
+                                &nbsp;
+                                <a class="btn btn-outline-danger" asp-action="DeleteProduct" asp-route-pid="@item.ProductId">
+                                    <i class="ri-delete-bin-2-fill"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/datetime-utils.js"></script>
+}

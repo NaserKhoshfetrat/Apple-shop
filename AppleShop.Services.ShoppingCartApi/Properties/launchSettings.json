@@ -1,0 +1,35 @@
+﻿{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+
+  "profiles": {
+    "AppleShop.Service.ProductApi": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:5110;http://localhost:5111",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+
+    //"http": {
+    //  "commandName": "Project",
+    //  "dotnetRunMessages": true,
+    //  "launchBrowser": false,
+    //  "applicationUrl": "http://localhost:5018",
+    //  "environmentVariables": {
+    //    "ASPNETCORE_ENVIRONMENT": "Development"
+    //  }
+    //},
+    //"https": {
+    //  "commandName": "Project",
+    //  "dotnetRunMessages": true,
+    //  "launchBrowser": false,
+    //  "applicationUrl": "https://localhost:7266;http://localhost:5018",
+    //  "environmentVariables": {
+    //    "ASPNETCORE_ENVIRONMENT": "Development"
+    //  }
+    //}
+  }
+}
