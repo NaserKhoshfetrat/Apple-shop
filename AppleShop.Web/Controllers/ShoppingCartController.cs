@@ -76,7 +76,7 @@ namespace AppleShop.Web.Controllers
             string accessToken = (await HttpContext.GetTokenAsync("access_token"))!;
             string userId = User.Claims.First(u => u.Type == "sub")?.Value!;
 
-            BaseResponseDto<bool> response = await _shoppingCartService.RemoveFromShoppingCartAsync(cartDetailsId, accessToken);
+            BaseResponseDto<bool?> response = await _shoppingCartService.RemoveFromShoppingCartAsync(cartDetailsId, accessToken);
             bool isResponseSucessful = response is not null && response.IsSuccessful;
             if (!isResponseSucessful) { return View(); }
             else { return RedirectToAction(nameof(ShoppingCartIndex)); }
@@ -103,7 +103,7 @@ namespace AppleShop.Web.Controllers
 
             foreach (var item in cartDto!.Result?.ShoppingCartDetail!)
             {
-                shoppingCartTotalPrice += (item.Product.Price * item.Product.CountInShoppingCart);
+                shoppingCartTotalPrice += (item.Product.Price * item.Count);
             }
 
             cartDto.Result.ShoppingCartHeader.OrderTotal = shoppingCartTotalPrice - cartDto.Result.ShoppingCartHeader.DiscountTotal;

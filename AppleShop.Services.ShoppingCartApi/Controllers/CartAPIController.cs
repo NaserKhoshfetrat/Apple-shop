@@ -172,7 +172,7 @@ namespace AppleShop.Services.ShoppingCartApi.Controllers
 
                 //if (!string.IsNullOrEmpty(checkoutHeader.CouponCode))
                 //{
-                //    ShoppingCartDto coupon = await _cartRepository.GetCoupon(checkoutHeader.CouponCode);
+                    //ShoppingCartDto coupon = await _cartRepository.GetCoupon(checkoutHeader.CouponCode);
                 //    if (checkoutHeader.DiscountTotal != coupon.DiscountAmount)
                 //    {
                 //        response.Result = false;

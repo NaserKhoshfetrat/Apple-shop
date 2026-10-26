@@ -15,7 +15,7 @@
     <div class="alert alert-warning" role="alert">@TempData["Error"]</div>
 }
 
-@if (Model != null && Model.ShoppingCartDetail.Count() > 0)
+@if (Model != null && Model.ShoppingCartDetail != null && Model.ShoppingCartDetail.Count() > 0)
 {
     <form method="post">
 

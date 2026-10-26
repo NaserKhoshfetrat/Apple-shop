@@ -68,7 +68,7 @@ namespace AppleShop.Web.Services.Integration.ShoppingCart
             return response;
         }
 
-        public async Task<BaseResponseDto<bool>> RemoveFromShoppingCartAsync(long shoppingCartDetailId, string? accessToken = null)
+        public async Task<BaseResponseDto<bool?>> RemoveFromShoppingCartAsync(long shoppingCartDetailId, string? accessToken = null)
         {
             string apiUrl = new Uri(new Uri(_serviceConfiguration.ShoppingCartApi.BaseUrl), _serviceConfiguration.ShoppingCartApi.RemoveCartRelativeUrl).ToString();
             string authorizationToken = accessToken;
@@ -76,7 +76,7 @@ namespace AppleShop.Web.Services.Integration.ShoppingCart
             Dictionary<string, string>? headers = null;
             string? path = $"/{shoppingCartDetailId}";
             object body = null; // new { shoppingCartDetailId = shoppingCartDetailId };
-            BaseResponseDto<bool> response = await _apiClient.PostAsync<BaseResponseDto<bool>, object>(body, apiUrl, authorizationToken, headers, path, queryString);
+            BaseResponseDto<bool?> response = await _apiClient.PostAsync<BaseResponseDto<bool?>, object>(body, apiUrl, authorizationToken, headers, path, queryString);
 
             return response;
         }
@@ -94,7 +94,7 @@ namespace AppleShop.Web.Services.Integration.ShoppingCart
             return response;
         }
 
-        public async Task<BaseResponseDto<bool>> Checkout(ShoppingCartHeaderDto shoppingCartHeaderDto, string? accessToken = null)
+        public async Task<BaseResponseDto<bool?>> Checkout(ShoppingCartHeaderDto shoppingCartHeaderDto, string? accessToken = null)
         {
             string apiUrl = new Uri(new Uri(_serviceConfiguration.ShoppingCartApi.BaseUrl), _serviceConfiguration.ShoppingCartApi.CheckoutRelativeUrl).ToString();
             string authorizationToken = accessToken;
@@ -102,7 +102,7 @@ namespace AppleShop.Web.Services.Integration.ShoppingCart
             Dictionary<string, string>? headers = null;
             string? path = null;
 
-            BaseResponseDto<bool> response = await _apiClient.PostAsync<BaseResponseDto<bool>, ShoppingCartHeaderDto>(shoppingCartHeaderDto, apiUrl, authorizationToken, headers, path, queryString);
+            BaseResponseDto<bool?> response = await _apiClient.PostAsync<BaseResponseDto<bool?>, ShoppingCartHeaderDto>(shoppingCartHeaderDto, apiUrl, authorizationToken, headers, path, queryString);
 
             return response;
         }

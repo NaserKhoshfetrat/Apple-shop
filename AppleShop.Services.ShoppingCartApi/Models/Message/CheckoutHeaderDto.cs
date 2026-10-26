@@ -20,6 +20,8 @@ namespace AppleShop.Services.ShoppingCartApi.Models.Message
         public string ExpiryBankCardMonthYear { get; set; }
 
         public long ShoppingCartTotaltems { get; set; }
-        public IEnumerable<ShoppingCartDetailDto> ShoppingCartDetails { get; set; }
+        
+        public IEnumerable<ShoppingCartDetailDto>? ShoppingCartDetails { get; set; } = Array.Empty<ShoppingCartDetailDto>();
+
     }
 }
